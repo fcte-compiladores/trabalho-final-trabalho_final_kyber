@@ -1,0 +1,15 @@
+// Agora da pra usar variaveis mas de um modo bem primitivo
+// Futuramente vai quebrar rs
+var blink_delay = 500
+
+setup {
+    pin 13 is output
+}
+
+loop {
+    set pin 13 to high
+    delay blink_delay
+
+    set pin 13 to low
+    delay blink_delay
+}
