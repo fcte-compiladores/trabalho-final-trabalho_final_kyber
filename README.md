@@ -117,4 +117,6 @@ O projeto é dividido da seguinte forma:
 
 ## Aplicação prática
 
+Aqui podemos ver uma aplicação prática do exemplo blink.ky
+
 ![Aplicação prática do exemplo blink.ky](aplicacao_pratica.png)
