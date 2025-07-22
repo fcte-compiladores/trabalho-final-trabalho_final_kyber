@@ -21,7 +21,7 @@ As principais estratégias e algoritmos utilizados foram:
 Aqui podemos ver um exemplo simples. Esse programa faz um led piscar e informa através da comunicação serial o seu estado.
 
 ```kyber
-// Arquivo: examples/if_test.ky
+// Arquivo: examples/if.ky
 var temperatura: int = 35
 var limite: int = 30
 
@@ -114,3 +114,7 @@ O projeto é dividido da seguinte forma:
     * Adicionar suporte para mais tipos de dados, como `float` e `bool`.
     * Introduzir o conceito de escopo local para variáveis declaradas dentro de blocos.
     * Criar laços de repetição for e while.
+
+## Aplicação prática
+
+![Aplicação prática do exemplo blink.ky](aplicacao_pratica.png)
