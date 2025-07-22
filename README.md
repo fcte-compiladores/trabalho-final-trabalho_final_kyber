@@ -1,79 +1,116 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/Hppw7Zh2)
-# Trabalho Final
+# Kyber: Transpiladorpara Arduino
 
-## Escopo e organização
+## Integrantes
 
-O trabalho é de tema livre dentro do escopo da disciplina de compiladores e
-consiste no desenvolvimento de alguma aplicação na área da disciplina (um
-interpretador para uma linguagem simples, compilador, analisadores de código,
-etc.)
+* **Nome:** Murilo Perazzo Barbosa Souto
+* **Matrícula:** 190129221
+* **Turma:** 18h
 
-O trabalho pode ser feito em grupos de até 4 pessoas.
+## Introdução
 
-## Estrutura
+Este projeto consiste no desenvolvimento do Kyber (cristal kyber), um transpilador que converte uma linguagem de programação de alto nível, para código C++ compatível com a plataforma Arduino. A linguagem foi projetada com uma sintaxe simples, visando facilitar o desenvolvimento para sistemas embarcados.
 
-Os trabalhos devem ser entregues na atividade própria no [github-classrrom](...).
-Cada repositório deve ter uma estrutura parecida com a delineada abaixo:
+As principais estratégias e algoritmos utilizados foram:
+* **Análise Léxica:** Implementada através de um lexer baseado em Expressões Regulares (Regex) para tokenizar o código fonte.
+* **Análise Sintática:** Utilizando um parser Recursivo Descendente, responsável por validar a sintaxe e construir uma **Árvore Sintática Abstrata (AST)** que representa a estrutura do código.
+* **Análise Semântica:** Realizada durante a fase de parsing, com o uso de uma **Tabela de Símbolos** para armazenar informações sobre variáveis e realizar a verificação de tipos em comandos e expressões.
+* **Geração de Código:** Percorre a AST e gera o código C++ final de forma limpa e desacoplada do parser.
 
-* **README:** o arquivo README.md na base do repositório deve descrever os
-  detalhes da implementação do código. O README deve ter algumas seções 
-  obrigatórias:
-  - **Título**: nome do projeto
-  - **Integrantes**: lista com os nomes, matrículas e turma de cada integrante.
-  - **Introdução**: deve detalhar o que o projeto implementou, quais foram as
-    estratégias e algoritmos relevantes. Se o projeto implementa uma linguagem
-    não-comum ou um subconjunto de uma linguagem comum, deve conter alguns
-    exemplos de comandos nesta linguagem, descrendo a sua sintaxe e semântica,
-    quando necessário.
-  - **Instalação**: deve detalhar os passos para instalar as dependências e
-    rodar o código do projeto. Pode ser algo simples como *"Rode
-    `uv run lox hello.lox` para executar o interpretador."*, se a linguagem de
-    implementação permitir este tipo de facilidade.
+### Exemplo
 
-    Você pode usar gerenciadores de pacotes específicos de linguagens populares
-    como uv, npm, cargo, etc, containers Docker/Podman, ou `.nix`.
-  - **Exemplos**: o projeto deve conter uma pasta "exemplos" com alguns arquivos
-    na linguagem de programação implementada. Deve conter exemplos com graus
-    variáveis de complexidade. Algo como: hello world, fibonacci, função
-    recursiva, alguma estrutura de dados e para finalizar um algoritmo um pouco
-    mais elaborado como ordenamento de listas, busca binária, etc.
-    
-    Note que isto é apenas um guia da ordem de dificuldade dos problemas.
-    Algumas linguagens sequer permitem a implementação de alguns dos exemplos
-    acima.
-  - **Referências**: descreva as referências que você utilizou para a
-    implementação da linguagem. Faça uma breve descrição do papel de cada
-    referência ou como ela foi usada no projeto. Caso você tenha usado algum 
-    código existente como referência, descreva as suas contribuições originais
-    para o projeto.
-  - **Estrutura do código**: faça uma descrição da estrutura geral do código
-    discutindo os módulos, classes, estruturas de dados ou funções principais. 
-    Explicite onde as etapas tradicionais de compilação (análise léxica, 
-    sintática, semântica, etc) são realizadas, quando relevante.
-  - **Bugs/Limitações/problemas conhecidos**: discuta as limitações do seu
-    projeto e problemas conhecidos e coisas que poderiam ser feitas para
-    melhorá-lo no futuro. Note: considere apenas melhorias incrementais e não
-    melhorias grandes como: "reimplementar tudo em Rust".
-* **Código:** O codigo fonte deve estar presente no repositório principal junto com
-  a declaração das suas dependências. Cada linguagem possui um mecanismo
-  específico para isso, mas seria algo como o arquivo pyproject.toml em Python
-  ou package.json no caso de Javascript.
+Aqui podemos ver um exemplo simples. Esse programa faz um led piscar e informa através da comunicação serial o seu estado.
 
-## Critérios
+```kyber
+// Arquivo: examples/if_test.ky
+var temperatura: int = 35
+var limite: int = 30
 
-Cada trabalho começa com 100% e pode receber penalizações ou bônus de acordo com
-os critérios abaixo:
+setup {
+    serialBegin 9600
+}
 
-- Ausência do README: -50%
-- Instruções de instalação não funcionam: até -20%
-- Referências não atribuídas ou falta de referâncias: -10%
-- Código confuso ou mal organizado: até -15%
-- Falta de clareza em apresentar as técnicas e etapas de compilação: -15%
-- Bugs e limitações sérias na implementação: até -25%
-- Escopo reduzido, ou implementação insuficiente: até 25%
-- Uso de código não atribuído/plágio: até -100%
-- Repositório bem estruturado e organizado: até 10%
-- Linguagem com conceitos originais/interessantes: até +15%
-- Testes unitários: até +15%, dependendo da cobertura
+loop {
+    if temperatura > limite {
+        serialPrintln "ALERTA: Temperatura muito alta!"
+    } else {
+        serialPrintln "Temperatura sob controle."
+    }
+    delay 2000 
+}
+```
 
-Após aplicar todos os bônus, a nota é truncada no intervalo 0-100%. 
+## Instalação e Execução
+
+Para executar o transpilador e os testes, é necessário ter o **Python 3.8+** instalado.
+
+1.  **Clone o repositório:**
+    ```sh
+    git clone https://github.com/fcte-compiladores/trabalho-final-trabalho_final_kyber
+    cd trabalho-final-trabalho_final_kyber
+    ```
+
+2.  **Crie e configure o ambiente virtual com `uv`:**
+    ```sh
+    # Cria o ambiente virtual na pasta .venv
+    uv venv
+
+    # Instala o pytest
+    uv pip install pytest
+    ```
+
+3.  **Para transpilar um arquivo:**
+    ```sh
+    # O arquivo .ino será gerado na pasta 'output/'
+    python3 main.py examples/if.ky
+    ```
+
+4.  **Para rodar a suíte de testes:**
+    ```sh
+    # Executa todos os testes na pasta tests/
+    uv run pytest -v
+    ```
+
+## Exemplos
+
+A pasta `examples/` contém diversos arquivos `.ky` que demonstram as funcionalidades da linguagem:
+
+* `blink.ky`: Programa mais básico para sistemas embarcados, faz um LED piscar.
+* `blink2leds.ky`: Faz dois LEDs piscarem.
+* `blink_variaveis.ky`:Controla o delay com variáveis.
+* `serial_teste.ky`: Demonstra o uso da comunicação serial para depuração.
+* `tipos_primitivos.ky`: Mostra a declaração de variáveis com tipos `int` e `String`.
+* `if.ky`: Demonstra o uso de estruturas de controle `if/else`.
+* `error.ky`: Não deve gerar nada, apenas uma mensagem de erro no terminal.
+
+## Referências
+
+* https://www.arduino.cc/reference/en/ : Todas as decisões de geração de código (como traduzir delay 1000 para delay(1000); ou var x: String para String x;) foram baseadas nas regras e funções definidas nesta referência
+
+* https://ruslanspivak.com/lsbasi-part1/ : Usado para entender melhor todas as partes gerenciáveis (lexer, parser)
+
+* https://github.com/jamiebuilds/the-super-tiny-compiler : Explica cada passo da criação de um transpilador
+
+## Estrutura do Código
+
+O projeto é dividido da seguinte forma:
+
+* `main.py`: Ponto de entrada da aplicação. lê o arquivo de entrada, chama o lexer, o parser e o gerador de código, e salva o resultado.
+* `lexer.py`: Responsável pela **Análise Léxica**. Transforma o código fonte em uma lista de tokens.
+* `ast_nodes.py`: Define a estrutura de dados da **Árvore Sintática Abstrata (AST)**.
+* `parser.py`: Responsável pela **Análise Sintática e Semântica**. Consome os tokens e constrói a AST, validando a sintaxe e os tipos com o auxílio de uma Tabela de Símbolos.
+* `codegen.py`: Responsável pela **Geração de Código**. Percorre a AST e gera o código C++ final.
+* `tests/`: Contém os testes unitários e de integração, garantindo a corretude de cada componente.
+
+## Bugs/Limitações/Melhorias Futuras
+
+* **Limitações Atuais:**
+    * O sistema de tipos suporta apenas `int` e `String`.
+    * Não há suporte para expressões aritméticas complexas (ex: `5 * (x + 2)`).
+    * As variáveis possuem apenas escopo global.
+    * Não há laços de repetição customizados (for ou while), apenas o `loop()` principal do Arduino.
+
+* **Melhorias Futuras:**
+    * Implementar um parser de expressões completo para permitir operações aritméticas.
+    * Adicionar suporte para mais tipos de dados, como `float` e `bool`.
+    * Introduzir o conceito de escopo local para variáveis declaradas dentro de blocos.
+    * Criar laços de repetição for e while.

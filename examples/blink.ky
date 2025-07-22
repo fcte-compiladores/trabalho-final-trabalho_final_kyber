@@ -1,11 +1,13 @@
 // Testando comentário
+
 setup {
-    pin 13 is output
+    pin 2 is output
 }
 
 loop {
-    set pin 13 to high
+    set pin 2 to high
     delay 1000
-    set pin 13 to low
+    
+    set pin 2 to low
     delay 1000
 }

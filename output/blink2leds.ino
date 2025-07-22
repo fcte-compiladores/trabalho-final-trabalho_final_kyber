@@ -1,14 +1,14 @@
+int led_principal = 13;int led_secundario = 2;int delay_longo = 2000;int delay_curto = 1000;
 void setup() {
-  pinMode(13, OUTPUT);
-  pinMode(2, OUTPUT);
+  pinMode(led_principal, OUTPUT);
+  pinMode(led_secundario, OUTPUT);
 }
 
 void loop() {
-  digitalWrite(13, HIGH);
-  digitalWrite(2, LOW);
-  delay(2000);
-  digitalWrite(13, LOW);
-  digitalWrite(2, HIGH);
-  delay(1000);
+  digitalWrite(led_principal, HIGH);
+  digitalWrite(led_secundario, LOW);
+  delay(delay_longo);
+  digitalWrite(led_principal, LOW);
+  digitalWrite(led_secundario, HIGH);
+  delay(delay_curto);
 }
-

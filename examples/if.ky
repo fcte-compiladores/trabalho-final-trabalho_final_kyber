@@ -1,0 +1,15 @@
+var temperatura: int = 35
+var limite: int = 30
+
+setup {
+    serialBegin 9600
+}
+
+loop {
+    if temperatura > limite {
+        serialPrintln "ALERTA: Temperatura muito alta!"
+    } else {
+        serialPrintln "Temperatura dboa."
+    }
+    delay 5000 
+}

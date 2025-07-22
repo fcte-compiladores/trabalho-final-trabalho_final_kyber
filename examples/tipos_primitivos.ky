@@ -1,0 +1,21 @@
+// Testando os tipos primitivos
+var mensagem: String = "Tipos primitos!"
+var led_pin: int = 13
+var tempo300: int = 300
+var tempo700: int = 700
+
+setup {
+    serialBegin 9600
+    pin led_pin is output
+    serialPrintln mensagem
+}
+
+loop {
+    serialPrintln "Ligando..."
+    set pin led_pin to high
+    delay tempo300
+    
+    serialPrintln "Desligando..."
+    set pin led_pin to low
+    delay tempo700
+}

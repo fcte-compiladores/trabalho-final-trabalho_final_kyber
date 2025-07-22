@@ -1,15 +1,15 @@
 // Agora da pra usar variaveis mas de um modo bem primitivo
-// Futuramente vai quebrar rs
-var blink_delay = 500
+var blink_delay: int = 500
+var led_pin: int = 13
 
 setup {
-    pin 13 is output
+    pin led_pin is output
 }
 
 loop {
-    set pin 13 to high
+    set pin led_pin to high
     delay blink_delay
 
-    set pin 13 to low
+    set pin led_pin to low
     delay blink_delay
 }

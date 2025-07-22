@@ -1,13 +1,11 @@
-int blink_delay = 500;
-
+int blink_delay = 500;int led_pin = 13;
 void setup() {
-  pinMode(13, OUTPUT);
+  pinMode(led_pin, OUTPUT);
 }
 
 void loop() {
-  digitalWrite(13, HIGH);
+  digitalWrite(led_pin, HIGH);
   delay(blink_delay);
-  digitalWrite(13, LOW);
+  digitalWrite(led_pin, LOW);
   delay(blink_delay);
 }
-

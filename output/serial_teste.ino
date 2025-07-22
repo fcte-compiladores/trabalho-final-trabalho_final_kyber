@@ -1,17 +1,15 @@
-
+int contador = 0;String mensagem_inicial = "Cristal Kyber Verde!";
 void setup() {
   Serial.begin(9600);
   pinMode(13, OUTPUT);
-  Serial.println("Kyber iniciado! Teste de serial e LED.");
+  Serial.println(mensagem_inicial);
 }
 
 void loop() {
-  Serial.println("loop");
-  digitalWrite(13, HIGH);
   Serial.println("LED Aceso");
-  delay(500);
-  digitalWrite(13, LOW);
+  digitalWrite(13, HIGH);
+  delay(1000);
   Serial.println("LED Apagado");
-  delay(500);
+  digitalWrite(13, LOW);
+  delay(1000);
 }
-

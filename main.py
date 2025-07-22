@@ -1,6 +1,7 @@
 import sys
 from lexer import lex
-from transpiler import Transpiler
+from parser import Parser
+from codegen import CodeGenerator
 
 def main():
     if len(sys.argv) != 2:
@@ -21,13 +22,21 @@ def main():
         sys.exit(1)
 
     try:
+        # 1. Lexer -> Tokens
         print("Analisando tokens...")
         tokens = lex(source_code)
         
-        print("Transpilando código...")
-        transpiler = Transpiler(tokens)
-        output_code = transpiler.transpile()
+        # 2. Parser -> AST
+        print("Analisando a sintaxe e construindo a AST...")
+        parser = Parser(tokens)
+        ast_tree = parser.parse()
+        
+        # 3. CodeGenerator -> Código Final
+        print("Gerando código .ino a partir da AST...")
+        codegen = CodeGenerator()
+        output_code = codegen.generate(ast_tree)
 
+        # 4. Salvar arquivo
         with open(output_filepath, 'w') as f:
             f.write(output_code)
         

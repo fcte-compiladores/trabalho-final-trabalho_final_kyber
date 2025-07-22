@@ -1,13 +1,19 @@
+var led_principal: int = 13
+var led_secundario: int = 2
+var delay_longo: int = 2000
+var delay_curto: int = 1000
+
 setup {
-    pin 13 is output
-    pin 2 is output
+    pin led_principal is output
+    pin led_secundario is output
 }
 
 loop {
-    set pin 13 to high
-    set pin 2 to low
-    delay 2000
-    set pin 13 to low
-    set pin 2 to high
-    delay 1000
+    set pin led_principal to high
+    set pin led_secundario to low
+    delay delay_longo
+
+    set pin led_principal to low
+    set pin led_secundario to high
+    delay delay_curto
 }

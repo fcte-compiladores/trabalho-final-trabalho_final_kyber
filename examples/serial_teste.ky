@@ -1,19 +1,20 @@
 // Teste comunicação serial 
 
+var contador: int = 0
+var mensagem_inicial: String = "Cristal Kyber Verde!"
+
 setup {
-    // Inicia a comunicação com o computador a 9600
     serialBegin 9600
     pin 13 is output
-    serialPrintln "Kyber iniciado"
+    serialPrintln mensagem_inicial
 }
 
 loop {
-    serialPrintln "loop" //testando se vai criar um void loop
-    set pin 13 to high
     serialPrintln "LED Aceso"
-    delay 500
+    set pin 13 to high
+    delay 1000
 
-    set pin 13 to low
     serialPrintln "LED Apagado"
-    delay 500
+    set pin 13 to low
+    delay 1000
 }
